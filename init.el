@@ -30,10 +30,6 @@
 (set-frame-parameter nil 'internal-border-width 0)
 
 ;;--------------------
-;; Aquamacs compatible
-(de-aqua-macs)
-
-;;--------------------
 ;; Theme and font
 (let ((theme 'Parchment)
       (face "PragmataPro Liga")
@@ -41,6 +37,10 @@
   (load-theme theme t)
   (set-font-info face (* 10 height) (+ 4 height) "outline" 'default nil)
   (update-font))
+
+;;--------------------
+;; Aquamacs compatible
+(de-aqua-macs)
 
 ;;--------------------
 ;; UI
@@ -94,7 +94,6 @@
 ;;----------------------------------------
 ;; Package
 ;;----------------------------------------
-(package-initialize)
 (req-package)
 
 (unless (package-installed-p 'use-package)

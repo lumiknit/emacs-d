@@ -206,8 +206,8 @@
   (interactive)
   (setq-default frame-title-format "Emacs")
   (custom-set-variables
-   '(menu-bar-mode nil)
-   '(scroll-bar-mode -1)
+   `(menu-bar-mode ,(if (eq system-type 'darwin) 1 -1))
+   '(scroll-bar-mode nil)
    '(tool-bar-mode nil)
    '(inhibit-startup-screen t))
   (fringe-mode (if (is-hidpi) '(16 . 16) '(8 . 8)))
@@ -392,7 +392,8 @@
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
-  (package-initialize))
+  (when (< emacs-major-version 27)
+    (package-initialize)))
 
 ;;----------------------------------------
 ;; Load
@@ -415,6 +416,12 @@
 
 ;;----------------------------------------
 ;; De-aqua-macs
+(defun set-cursor-color-as-foreground (&optional frame)
+  (with-selected-frame (or frame (selected-frame))
+    (scroll-bar-mode -1)
+    (set-cursor-color
+     (or prev-cursor-color (face-foreground 'default)))))
+
 (defun de-aqua-macs ()
   "Disable all aquamacs features"
   (interactive)
@@ -431,6 +438,9 @@
           initial-major-mode 'emacs-lisp-mode)
     (global-smart-spacing-mode -1)
     (remove-hook 'text-mode-hook 'smart-spacing-mode)
+    (setq prev-cursor-color (face-background 'cursor))
+    (add-hook 'window-setup-hook 'set-cursor-color-as-foreground)
+    (add-to-list 'after-make-frame-functions #'set-cursor-color-as-foreground)
     ))
 
 ;;----------------------------------------
