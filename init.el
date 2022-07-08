@@ -31,7 +31,7 @@
 
 ;;--------------------
 ;; Theme and font
-(let ((theme 'Parchment)
+(let ((theme 'Darkula)
       (face "PragmataPro Liga")
       (height 16))
   (load-theme theme t)
@@ -171,6 +171,8 @@
 
 (load-d "enclose")
 
+(load-d "go-mod")
+
 ;;------------------------------------------------------------
 ;; Keybind
 (global-set-keys
@@ -182,6 +184,7 @@
    ((kbd "C-*")                region-to-new-buffer)
    ((kbd "C-M-*")              retion-to-new-buffer-other-window)
    ((kbd "C-`")                toggle-shell)
+   ((kbd "<C-escape>")         toggle-shell)
    ;; Size
    ((kbd "C-+")                increase-window-v)
    ((kbd "C-=")                decrease-window-v)
