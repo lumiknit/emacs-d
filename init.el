@@ -25,14 +25,14 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'meta)
 ;; Title bar
-;;(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . light))
 (set-frame-parameter nil 'internal-border-width 0)
 
 ;;--------------------
 ;; Theme and font
-(let ((theme 'Darkula)
-      (face "PragmataPro Liga")
+(let ((theme 'Parchment)
+      (face "PragmataPro")
       (height 16))
   (load-theme theme t)
   (set-font-info face (* 10 height) (+ 4 height) "outline" 'default nil)
@@ -126,7 +126,8 @@
          ("TAB" . #'company-complete)
          ("<tab>" . #'company-complete))
   :config
-  (global-company-mode))
+  ;;(global-company-mode)
+  )
 
 (use-package haskell
   :init
@@ -206,3 +207,23 @@
 ;;--
 ;; Reset Warning Level
 (setq warning-minimum-level :warning)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t)
+ '(menu-bar-mode 1)
+ '(package-selected-packages
+   '(yaml-mode fsharp-mode web-mode use-package tuareg swift-mode slime scala-mode rust-mode reason-mode magit kotlin-mode json-mode inf-ruby haskell-mode go-mode font-lock-studio erlang elixir-mode company cider cargo-mode bison-mode ada-mode))
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "PragmataPro" :foundry foundry :slant normal :weight normal :height 160 :width normal))))
+ '(bold ((t (:inherit default :weight bold))))
+ '(bold-italic ((t (:inherit default :slant italic :weight bold))))
+ '(italic ((t (:inherit default :slant italic)))))

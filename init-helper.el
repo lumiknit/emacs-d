@@ -369,6 +369,7 @@
            (coq-mode          "[][(){}:;,.^~!#$@&*+=|<>/?\\-]+")
            (coq-response-mode "[][(){}:;,.^~!#$@&*+=|<>/?\\-]+")
            (coq-goals-mode    "[][(){}:;,.^~!#$@&*+=|<>/?\\-]+")
+           (yaml-mode "[][(){},;:|-]+")
            )))
     (dolist (i punc-list)
       (font-lock-add-keywords
@@ -514,14 +515,16 @@
 (defun toggle-shell ()
   "Toggle shell buffer"
   (interactive)
-  (if (string= (buffer-name (current-buffer)) "*shell*")
+  (if (string= (buffer-name (current-buffer)) "*ansi-term*")
       (delete-window)
     (let ((bl (buffer-list)))
-      (while (and bl (not (string= (buffer-name (car bl)) "*shell*")))
+      (while (and bl (not (string= (buffer-name (car bl)) "*ansi-term*")))
         (setq bl (cdr bl)))
       (if bl
           (switch-to-buffer-other-window (car bl))
-        (shell)))))
+        (let ((w (split-window-below)))
+          (select-window w)
+          (ansi-term (read-string "Term: " shell-file-name)))))))
 
 ;;----------------------------------------
 (provide 'init-helper)
